@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://res/hose.png" type="Texture" id=1]
+[ext_resource path="res://res/connector.png" type="Texture" id=2]
+
+[node name="HoseSeg" type="Node2D"]
+
+[node name="connector" type="Sprite" parent="."]
+position = Vector2( 0, 3 )
+texture = ExtResource( 2 )
+
+[node name="hose" type="Sprite" parent="."]
+texture = ExtResource( 1 )
