@@ -37,7 +37,7 @@ func _physics_process(delta):
 		var velocity = seg.obj.position - seg.old_pos
 		seg.old_pos = seg.obj.position
 		velocity += GRAVITY * delta
-		velocity.x -= player.vel.x / 8 * delta
+		velocity.x -= player.vel.x / 6 * delta
 		seg.obj.position += velocity
 		
 	for x in range(CONSTRS):

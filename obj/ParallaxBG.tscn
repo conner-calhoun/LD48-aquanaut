@@ -24,3 +24,6 @@ motion_mirroring = Vector2( 0, 128 )
 [node name="wall" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
 texture = ExtResource( 2 )
 centered = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
+color = Color( 0.027451, 0.0313726, 0.113725, 1 )
