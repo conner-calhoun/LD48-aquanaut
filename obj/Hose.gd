@@ -19,7 +19,7 @@ class Segment:
 
 func _ready():
 	var y_placement = -12
-	for x in range(SEGS):
+	for _x in range(SEGS):
 		var object = segment.instance()
 		add_child(object)
 		object.position = Vector2(0, y_placement)
