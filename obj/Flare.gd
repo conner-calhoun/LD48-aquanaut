@@ -8,12 +8,13 @@ var player = KinematicBody2D.new()
 
 var velocity = Vector2.ZERO
 
-onready var hang_time = 2
+onready var hang_time = 3
+onready var final_speed = 1
 
 func init(pos: Vector2, vel: Vector2, player_node: KinematicBody2D):
 	position = pos
 	velocity = vel
-	velocity.y += 15
+	velocity.y += 50
 	player = player_node
 
 func _physics_process(delta):
@@ -24,6 +25,11 @@ func _physics_process(delta):
 	velocity.x = lerp(velocity.x, 0, .01)
 	
 	if time > hang_time:
-		velocity.y = lerp(velocity.y, 0, .05)
+		velocity.y = lerp(velocity.y, final_speed, .1)
+	elif time > 1:
+		velocity.y = lerp(velocity.y, final_speed, .5)
 		
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	if position.y < -128:
+		queue_free()
