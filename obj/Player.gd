@@ -4,9 +4,9 @@ export(PackedScene) var flare_scn
 
 const ACCEL = 50
 const MAX_SPEED = 150
-const GRAV = 20
+onready var grav = 20
 
-onready var vel = Vector2(0, GRAV)
+onready var vel = Vector2(0, grav)
 onready var flares = 2
 
 signal flare_used
@@ -30,6 +30,12 @@ func _physics_process(dt):
 	# handle flares
 	if Input.is_action_just_pressed("action") and flares > 0:
 		use_flare()
+	
+	if Input.is_action_pressed("boost"):
+		grav = lerp(grav, 50, .2)
+	else:
+		grav = lerp(grav, 20, .01)
+	vel.y = grav
 	
 	# handle movement
 	var axis = get_input_axis()

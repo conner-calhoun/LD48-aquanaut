@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://res/jelly/jelly_idle0.png" type="Texture" id=1]
+[ext_resource path="res://res/jelly/jelly_idle1.png" type="Texture" id=2]
+[ext_resource path="res://res/jelly/jelly_flash1.png" type="Texture" id=3]
+[ext_resource path="res://res/jelly/jelly_flash0.png" type="Texture" id=4]
+[ext_resource path="res://res/jelly/jelly_flash2.png" type="Texture" id=5]
+[ext_resource path="res://res/jelly/jelly_flash3.png" type="Texture" id=6]
+[ext_resource path="res://obj/Jelly.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "hit",
+"speed": 14.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 12 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="Jelly" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 2 )
