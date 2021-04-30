@@ -19,8 +19,7 @@ func _ready():
 	$AnimatedSprite.connect("animation_finished", self, "handle_anim_fin")
 	$Area2D.connect("body_entered", self, "handle_body_entered")
 	
-	# after 8 secs, delete it
-	yield(get_tree().create_timer(8), "timeout")
+	yield(get_tree().create_timer(15), "timeout")
 	queue_free()
 
 func _physics_process(delta):
