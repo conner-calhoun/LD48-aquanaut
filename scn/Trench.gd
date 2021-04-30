@@ -19,7 +19,7 @@ onready var canv_mod = get_node(main_mod)
 onready var parallax = get_node(parallax_path)
 onready var parallax_mod = parallax.get_node("ParallaxBackground/CanvasModulate")
 
-const dark_speed = .01
+const dark_speed = .02
 onready var dark = 0.0
 
 onready var player_flares = player.get_flare_count()
@@ -34,7 +34,6 @@ const GlowCoralPlacement = {
 
 onready var coral_time = 10
 onready var last_placed_coral = coral_time + 1
-onready var coral_list = []
 func handle_coral(delta: float):
 	last_placed_coral += delta
 	
@@ -45,12 +44,6 @@ func handle_coral(delta: float):
 		coral_time = 7
 	else:
 		coral_time = 3
-		
-	# free coral that is too high up
-	for c in coral_list:
-		if c.position.y < depth - 20:
-			c.queue_free()
-			coral_list.erase(c)
 	
 	# place a random coral occasionally
 	var r = randi()%3
@@ -59,13 +52,11 @@ func handle_coral(delta: float):
 		gc.position = Vector2(GlowCoralPlacement.Left, depth + 140)
 		add_child(gc)
 		last_placed_coral = 0
-		coral_list.append(gc)
 	if r == 1 and last_placed_coral > coral_time:
 		var gc = glow_coral.instance()
 		gc.position = Vector2(GlowCoralPlacement.Right, depth + 140)
 		add_child(gc)
 		last_placed_coral = 0
-		coral_list.append(gc)
 
 func update_flare_count():
 	player_flares = player.get_flare_count()
@@ -88,3 +79,8 @@ func _physics_process(delta):
 	parallax_mod.color = ocean_blue
 
 	handle_coral(delta)
+	
+	# on player death, load final scene with depth
+	
+func get_depth() -> float:
+	return round(depth_m)

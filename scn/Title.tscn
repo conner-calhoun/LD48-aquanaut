@@ -61,16 +61,17 @@ __meta__ = {
 }
 
 [node name="Controls" type="RichTextLabel" parent="Camera2D/Control"]
-margin_left = 6.4545
-margin_top = 91.5368
-margin_right = 134.454
-margin_bottom = 131.537
+margin_left = 6.0
+margin_top = 87.0
+margin_right = 134.0
+margin_bottom = 132.0
 custom_fonts/normal_font = SubResource( 3 )
 meta_underlined = false
 text = "Controls:
 Left: A
 Right: D
-Flare: Space"
+Flare: Space
+Boost: Shift"
 __meta__ = {
 "_edit_use_anchors_": false
 }
