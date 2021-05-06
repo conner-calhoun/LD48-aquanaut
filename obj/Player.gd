@@ -9,7 +9,18 @@ onready var grav = 20
 onready var vel = Vector2(0, grav)
 onready var flares = 2
 
+onready var hp = 2
+
 signal flare_used
+
+var god_mode = false
+
+func hit():
+	if not god_mode:
+		hp -= 1
+
+func get_hp() -> int:
+	return hp
 
 func get_flare_count() -> int:
 	return flares
@@ -46,5 +57,8 @@ func _physics_process(dt):
 		vel.x = min(vel.x + (ACCEL * dt), MAX_SPEED)
 	else:
 		vel.x = lerp(vel.x, 0, .01)
+	
+	if hp <= 0:
+		vel = Vector2.ZERO
 
 	vel = move_and_slide(vel, Vector2(0, -1))

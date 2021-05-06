@@ -32,31 +32,30 @@ const GlowCoralPlacement = {
 	Right = 123
 }
 
-onready var coral_time = 10
-onready var last_placed_coral = coral_time + 1
-func handle_coral(delta: float):
-	last_placed_coral += delta
-	
+onready var coral_depth = 10
+onready var last_placed_coral = coral_depth
+func handle_coral():
 	# coral becomes more common the further down you go
 	if depth_m < 50:
-		coral_time = 10
+		coral_depth = 10
 	elif depth_m < 100:
-		coral_time = 7
+		coral_depth = 7
 	else:
-		coral_time = 3
+		coral_depth = 3
 	
 	# place a random coral occasionally
-	var r = randi()%3
-	if r == 0 and last_placed_coral > coral_time:
-		var gc = glow_coral.instance()
-		gc.position = Vector2(GlowCoralPlacement.Left, depth + 140)
-		add_child(gc)
-		last_placed_coral = 0
-	if r == 1 and last_placed_coral > coral_time:
-		var gc = glow_coral.instance()
-		gc.position = Vector2(GlowCoralPlacement.Right, depth + 140)
-		add_child(gc)
-		last_placed_coral = 0
+	if round(depth_m) - last_placed_coral >= coral_depth:
+		var r = randi()%3
+		if r == 0:
+			var gc = glow_coral.instance()
+			gc.position = Vector2(GlowCoralPlacement.Left, depth + 140)
+			add_child(gc)
+			last_placed_coral = round(depth_m)
+		if r == 1:
+			var gc = glow_coral.instance()
+			gc.position = Vector2(GlowCoralPlacement.Right, depth + 140)
+			add_child(gc)
+			last_placed_coral = round(depth_m)
 
 func update_flare_count():
 	player_flares = player.get_flare_count()
@@ -72,13 +71,14 @@ func _physics_process(delta):
 	depth_m = depth / 8
 	depth_ui.text = "DEPTH: %s" % round(depth_m)
 	
-	dark += dark_speed * delta
+	# Gets pitch black at 150m
+	dark = depth_m / 150
 	
 	var ocean_blue = Color("#ebfeff").darkened(dark)
 	canv_mod.color = ocean_blue
 	parallax_mod.color = ocean_blue
 
-	handle_coral(delta)
+	handle_coral()
 	
 	# on player death, load final scene with depth
 	

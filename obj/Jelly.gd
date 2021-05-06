@@ -14,6 +14,7 @@ func handle_body_entered(body):
 		"Player":
 			# Kill player, play animation
 			$AnimatedSprite.play("hit")
+			body.hit()
 
 func _ready():
 	$AnimatedSprite.connect("animation_finished", self, "handle_anim_fin")

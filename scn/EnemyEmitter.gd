@@ -10,7 +10,7 @@ onready var player: KinematicBody2D = get_node(player_path)
 onready var spawn_depth = 7
 onready var spawn_depth_diff = 7
 
-func _physics_process(delta):
+func _physics_process(dt: float):
 	prev_depth = depth
 	depth = get_parent().get_depth()
 	
